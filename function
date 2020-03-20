@@ -1,0 +1,52 @@
+#include <iostream>
+#include "struct.h"
+int countTrees(Plantation p, int type)
+{
+	int count = 0;
+	for (int i = 0; i < p.countTrees; i++)
+	{
+		if (p.tree[i].type = type)
+			count++;
+	}
+	return count;
+}
+int countCoffeeTrees(Plantation p)
+{
+	return countTrees(p, TYPE_COFFEE);
+}
+int countTeaTrees(Plantation p)
+{
+	return countTrees(p, TYPE_TEA);
+}
+Location findUpperLeft(Plantation p)
+{
+	Location upperLeft;
+	upperLeft.x = p.tree[0].point.x;
+	upperLeft.y = p.tree[0].point.y;
+	for (int i = 1; i < p.countTrees; i++)
+	{
+		if (p.tree[i].point.x < upperLeft.x)
+			upperLeft.x = p.tree[i].point.x;
+		if (p.tree[i].point.y > upperLeft.y)
+			upperLeft.y = p.tree[i].point.y;
+	}
+	return upperLeft;
+}
+Location findLowerRight(Plantation p)
+{
+	Location lowerRight;
+	lowerRight.x = p.tree[0].point.x;
+	lowerRight.y = p.tree[0].point.y;
+	for (int i = 1; i < p.countTrees; i++)
+	{
+		if (p.tree[i].point.x > lowerRight.x)
+			lowerRight.x = p.tree[i].point.x;
+		if (p.tree[i].point.y < lowerRight.y)
+			lowerRight.y = p.tree[i].point.y;
+	}
+	return lowerRight;
+}
+float calcFenceLength(Plantation p)
+{
+	return 2 * ((findLowerRight(p).x - findUpperLeft(p).x) + (findUpperLeft(p).y - findLowerRight(p).y));
+}
